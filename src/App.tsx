@@ -33,7 +33,7 @@ import {
 } from "./data/content";
 import { appStyles } from "./styles/appStyles";
 import heroImage from "../assets/VEC SAV 336-04.jpg";
-import logoImage from "../assets/8b90a6e5-c8c3-44bf-9085-48261977adce_removalai_preview.png";
+import logoImage from "../assets/logo.png";
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
