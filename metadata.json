@@ -1,0 +1,8 @@
+{
+  "name": "أكاديمية وعي | لعلوم القرآن والتربية",
+  "description": "منصة تعليمية تربوية متخصصة في تعليم القرآن الكريم وبناء الوعي بمنهج يجمع بين الحفظ والفهم والتطبيق العملي.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
