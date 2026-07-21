@@ -1,0 +1,375 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "programs": "Programs & Tracks",
+    "plans": "Plans & Pricing",
+    "contact": "Contact Us"
+  },
+  "header": {
+    "login": "Login",
+    "joinTeam": "Join Waai Team"
+  },
+  "home": {
+    "features": "Features",
+    "whyParentsChoose": "Why do parents choose <highlight>Waai</highlight> for their children?",
+    "whyParentsChooseDesc": "We do not offer a traditional lesson, but rather a journey of change and building a human being connected to the Creator with awareness and love.",
+    "haveQuestion": "Have a question?",
+    "contactWhatsapp": "Contact us via WhatsApp"
+  },
+  "hero": {
+    "badge": "More than 500 students worldwide",
+    "titlePart1": "Quran",
+    "titleHighlight": "is a way of life",
+    "titlePart2": "that builds the human",
+    "description": "An educational academy combining the authenticity of memorization and depth of understanding, for a conscious Muslim generation that turns verses into behavior and impact in daily life.",
+    "ctaPrimary": "Start your free session now",
+    "ctaSecondary": "Browse services",
+    "statsTitle": "+500 Students",
+    "statsSubtitle": "who chose Waai to change their lives"
+  },
+  "aboutPreview": {
+    "subtitle": "About Waai Academy",
+    "titlePart1": "We build",
+    "titleHighlight": "a human",
+    "titlePart2": "who carries the Quran in his heart and mind",
+    "desc1": "Waai Academy is not just a platform for memorizing and reciting the Holy Quran, but a comprehensive educational incubator aiming to build a conscious Quranic personality.",
+    "desc2": "We believe that the Holy Quran was revealed to be a way of life, and therefore we designed our programs to combine perfect memorization, deep understanding of verses, and practical application in the daily behavior of our children.",
+    "cta": "Discover our full story"
+  },
+  "programs": {
+    "title": "Waai Subjects",
+    "quranVerse": "And whatever good you put forward for yourselves - you will find it with Allah. It is better and greater in reward.",
+    "description": "At Waai Academy, we offer a comprehensive set of educational subjects and programs carefully designed to suit different ages and levels, aiming to connect the Muslim with the Book of Allah in recitation, understanding, and practice, and to raise a conscious and morally distinguished generation."
+  },
+  "testimonialsSection": {
+    "subtitle": "Subscribers' Opinions",
+    "titlePart1": "What do they say about",
+    "titleHighlight": "Waai",
+    "titlePart2": "?",
+    "desc": "Real experiences of parents and students who trusted us and chose Waai Academy to be their partner in the journey of memorizing and contemplating the Holy Quran."
+  },
+  "ctaSection": {
+    "title": "Start your children's journey with the Quran now!",
+    "desc": "We offer you the first session for free to get to know our method and try our learning environment before making your decision.",
+    "primary": "Book your free session",
+    "secondary": "Discover our programs"
+  },
+  "plans": {
+    "title": "Subscription Plans",
+    "subtitle": "Choose the plan that fits your educational needs and start your journey with us",
+    "loading": "Loading...",
+    "error": "An error occurred while loading plans. Please check the link or try again later.",
+    "bestSeller": "Best Seller",
+    "currencyFallback": "EGP",
+    "perMonth": "month",
+    "sessionsCount": "Number of sessions: {{count}} sessions",
+    "sessionTime": "Session duration: {{time}} minutes",
+    "subscribe": "Subscribe Now",
+    "noPlans": "No plans available currently"
+  },
+  "contact": {
+    "needHelp": "Need immediate help?",
+    "helpDesc": "Contact us directly via WhatsApp, and our team will help you choose the right program and answer all your inquiries.",
+    "features": [
+      "Quick response to inquiries",
+      "Help in choosing the right program",
+      "Follow-up before and after registration"
+    ],
+    "whatsappBtn": "Contact us via WhatsApp",
+    "contactUs": "Contact Us",
+    "leaveMessage": "Leave your message",
+    "form": {
+      "name": "Name",
+      "phone": "Phone Number",
+      "email": "Email Address",
+      "message": "Message",
+      "submit": "Send",
+      "submitting": "Sending...",
+      "success": "Your message has been sent successfully!"
+    },
+    "validation": {
+      "nameRequired": "Please enter your name",
+      "phoneRequired": "Please enter your phone number",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Invalid email address",
+      "messageRequired": "Please enter a message"
+    },
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "locationValue": "Cairo, Egypt"
+  },
+  "footer": {
+    "rights": "© {{year}} Wa3y Academy. All rights reserved.",
+    "designedBy": "Designed by",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+  },
+  "about": {
+    "whoAreWe": "Who Are We?",
+    "description": "<highlight>Waai</highlight> is an educational platform dedicated to teaching the Holy Quran and reading for children and youth. It provides a comprehensive and systematic curriculum by qualified teachers via distance learning. <highlight>Waai</highlight> aims to provide high-quality education and interaction with the Quran and reading in innovative and modern ways.",
+    "featuresTitle": "Among the prominent features of <highlight>Waai</highlight> platform",
+    "tabs": {
+      "goals": "Our Goals:",
+      "mechanism": "Work Mechanism:",
+      "vision": "Our Vision:"
+    },
+    "goalsContent": [
+      {
+        "title": "Drawing closer to Allah through Quran recitation:",
+        "desc": "We teach students how to recite the Quran in a correct and beautiful manner, encouraging them to read and contemplate the Quran to strengthen their connection with Allah."
+      },
+      {
+        "title": "Education through the Quran:",
+        "desc": "We don't stop at memorization, but focus on extracting Quranic values and morals to apply them in daily life as a way of living."
+      },
+      {
+        "title": "Quality control and guidance system for teachers:",
+        "desc": "We rely on a strict quality control system to ensure our teachers provide education with the highest standards of quality and follow-up."
+      },
+      {
+        "title": "Interaction and Innovation:",
+        "desc": "Using the latest interactive methods and educational games to make the learning journey interesting and free of boredom."
+      },
+      {
+        "title": "Flexibility and Continuous Support:",
+        "desc": "Providing flexible education that suits everyone's schedule, while maintaining the highest quality standards, continuous follow-up, and permanent support for students."
+      }
+    ],
+    "mechanismContent": [
+      {
+        "title": "Direct and Interactive Sessions:",
+        "desc": "Live online sessions via secure visual platforms ensure direct interaction between the student and the teacher to break the spatial barrier."
+      },
+      {
+        "title": "Personal Follow-up (1-on-1):",
+        "desc": "We provide individual paths that meet the needs of each student and focus on their weak points to strengthen them with a customized plan suitable for their learning speed."
+      },
+      {
+        "title": "Interactive Group Sessions:",
+        "desc": "We offer educational sessions gathering the teacher with multiple students simultaneously to promote the spirit of participation and positive competition among students."
+      },
+      {
+        "title": "Continuous Evaluation and Periodic Reports:",
+        "desc": "Sending periodic reports to parents showing the student's progress, commitment to the educational plan, and continuous development."
+      },
+      {
+        "title": "Flexible Timings:",
+        "desc": "Flexible schedules suiting different student timings worldwide to facilitate the learning process."
+      }
+    ],
+    "visionContent": [
+      "At Waai Academy, we believe that faith before the Quran is the key to understanding and reciting the Quran correctly and effectively.",
+      "We aim to build a committed and believing generation that memorizes the Quran and lives its great values in their daily lives.",
+      "We draw our inspiration from the word of Allah in the Quran:\n“Certainly did Allah confer [great] favor upon the believers when He sent among them a Messenger from themselves, reciting to them His verses and purifying them and teaching them the Book and wisdom” (Al Imran: 164).",
+      "We aim to achieve these goals and more with the help of Allah.",
+      "Finally, we always strive to be a place where students benefit from memorizing and learning the Quran deeply and distinctively.",
+      "We thank Allah for this opportunity and hope to continue serving the Quran and teaching it to future generations to build Muslims with a firm identity and belief."
+    ]
+  },
+  "services": {
+    "islamic_education": {
+      "title": "Islamic Education (Kids)",
+      "desc": "Do you want to teach your children Islamic values and ethics in a fun and beneficial way? The Islamic Education course for kids at 'Waai Academy' offers you the perfect opportunity. We aim to enhance Islamic education combining knowledge and fun."
+    },
+    "tajweed_adults": {
+      "title": "Tajweed Course for Adults",
+      "desc": "If you are looking for a deeper understanding and better Tajweed for reciting the Holy Quran, the Tajweed course at 'Waai Academy' is your perfect choice. We offer distinguished Tajweed courses to master the rules of recitation."
+    },
+    "quran_non_arabic": {
+      "title": "Quran for Non-Arabic Speakers",
+      "desc": "Do you want to understand and recite the Holy Quran as a non-Arabic speaker? The Quran course for non-Arabic speakers at Waai Academy is your ideal choice. Specially designed courses to help you recite correctly."
+    },
+    "quran_memorization": {
+      "title": "Holy Quran Memorization",
+      "desc": "At Waai Academy, we aim to provide a unique online Quran memorization experience. Our memorization courses come with many advantages that make the process easier and more enjoyable."
+    }
+  },
+  "whyUs": {
+    "curriculum": {
+      "title": "Comprehensive Curriculum",
+      "desc": "We don't focus only on abstract memorization, but deeply care about understanding meanings and practical application in daily life so their character becomes the Quran."
+    },
+    "teachers": {
+      "title": "Specialized Teachers",
+      "desc": "An elite group of male and female teachers with long experience not only in Tajweed, but in the arts of education and psychological interaction with children and youth."
+    },
+    "flexible": {
+      "title": "Flexible Online Learning",
+      "desc": "Modern educational technologies allow students to learn from anywhere in the world, with interactive tools that break the barrier of boredom and make the session fun."
+    },
+    "followup": {
+      "title": "Accurate Personal Follow-up",
+      "desc": "Every student is a special case; having a plan that suits their abilities and monthly reports informing parents of the finest details of progress."
+    }
+  },
+  "stats": {
+    "students": "Students",
+    "teachers": "Specialized Teachers",
+    "hours": "Educational Hours",
+    "experience": "Years Experience"
+  },
+  "testimonials": {
+    "t1": {
+      "name": "Um Mohammed",
+      "role": "Parent",
+      "comment": "My son has become more committed and loving to the Quran after joining the academy. The follow-up is great and constantly motivates the student."
+    },
+    "t2": {
+      "name": "Ahmed Khaled",
+      "role": "Student",
+      "comment": "What I liked most is combining memorization with understanding meanings in a practical and simple way. The teachers here are truly wonderful."
+    },
+    "t3": {
+      "name": "Sara Ali",
+      "role": "Parent",
+      "comment": "A very special experience, the teachers are cooperative and the educational environment is motivating and comfortable for the child. Highly recommended."
+    }
+  },
+  "subjectDetails": {
+    "notFound": "Subject not found",
+    "back": "Back to subjects",
+    "courseTitle": "{{title}} Course",
+    "whyChoose": "Why choose {{title}} course <br className=\"hidden md:block\"/> at Wa3y Academy?",
+    "registerTitle": "Register for {{title}} course",
+    "registerDesc1": "Start your journey to understand and recite the Quran easily and professionally. The course will be specially designed to suit your needs and facilitate your guidance during the learning process.",
+    "registerDesc2": "Get a wonderful opportunity to learn and recite the Holy Quran in a way you will not forget. Join the {{title}} course at Wa3y Academy now.",
+    "registerBtn": "Register Now",
+    "otherSubjects": "Wa3y Subjects",
+    "defaultFeatures": [
+      {
+        "title": "Learn Arabic Language",
+        "desc": "Before the course, we teach the basics of the Arabic language to pave the way for the Quran better and interactively."
+      },
+      {
+        "title": "Translation and Interpretation",
+        "desc": "Simple translation and interpretation of the Quran to ensure an inspired and studied understanding."
+      },
+      {
+        "title": "Quran Tajweed",
+        "desc": "Learn to read the Quran with rules and Tajweed to enable you to recite better."
+      },
+      {
+        "title": "Professional Teachers Support",
+        "desc": "We deal with experienced and qualified teachers to help you understand and recite the Quran perfectly."
+      },
+      {
+        "title": "Social Communication",
+        "desc": "Social communication sessions and discussions are held to help you meet new friends."
+      },
+      {
+        "title": "Learn by what you learn",
+        "desc": "Keen on applying the Quranic verses memorized by the child in their daily life practically such as honoring parents, charity, honesty, etc."
+      },
+      {
+        "title": "Special Offers",
+        "desc": "Currently, we offer a 20% discount during the first month. To get this opportunity, register and apply the code for a first-month discount."
+      },
+      {
+        "title": "Act upon what you learn",
+        "desc": "Keen on applying the Quranic verses memorized by the child in their daily life practically such as honoring parents, charity, honesty, etc."
+      }
+    ]
+  },
+  "application": {
+    "heroTitle": "Join 'Waai Academy' for teaching the Quran. If you are a Quran memorizer looking for an opportunity to work as a teacher in Wa3y Academy, here are the features, conditions, and requirements:",
+    "applyNowBtn": "Apply Now",
+    "readConditionsBtn": "View Conditions & Requirements",
+    "startApplyBtn": "Start Applying",
+    "mainConditionsTitle": "Main Conditions",
+    "mainConditionsDesc": "Please read the following conditions before applying to ensure compatibility with the requirements.",
+    "conditions": [
+      "Single.",
+      "Graduated (Finished studying).",
+      "Polite communication style.",
+      "Training for a week or less.",
+      "Availability and dedication to work.",
+      "Fast response to messages.",
+      "Commitment and rare excuses."
+    ],
+    "formTitle": "Application Form",
+    "formDesc": "Complete the four steps, then click submit. A success message will appear upon completion.",
+    "step1": "Terms & Commitment",
+    "step2": "Personal Data",
+    "step3": "Work Experience",
+    "step4": "Distinctive Questions",
+    "stepperTitle": "Teacher Application",
+    "stepOf": "Step {{current}} of {{total}}",
+    "successTitle": "Your application has been submitted successfully!",
+    "successDesc": "Thank you for applying to join Wa3y Academy. Your application will be reviewed and we will contact you shortly.",
+    "newAppBtn": "Submit a new application",
+    "nextBtn": "Next",
+    "prevBtn": "Previous",
+    "submitBtn": "Submit Application",
+    "termsQ1": "1) Do you agree to all the above conditions?",
+    "termsQ2": "2) Salary is 1500 EGP and increases to 1800 EGP after three months",
+    "termsQ3": "3) Daily supervision work (no weekly off days)",
+    "termsQ4": "4) Please select your suitable shift, ensuring your full availability during this period",
+    "termsQ5": "5) Full availability during the shift is required",
+    "termsQ6": "6) Can you use ZOOM + Google meet?",
+    "termsQ7Title": "7) The academy prohibits stopping before 6 months of work and prevents sudden quitting...",
+    "termsQ7Desc": "<span class=\"font-bold\">Academy Policy:</span> After the supervisor is accepted, it is required to continue working for at least 6 months before requesting to stop. In case of stopping, management must be informed 3 months in advance to prevent harm to the academy and to allow us to find and train a replacement.",
+    "termsQ7Label": "I agree to this policy: Agree",
+    "agree": "Agree",
+    "disagree": "Disagree",
+    "shift1": "From 5 AM to 3 PM",
+    "shift2": "From 2 PM to 12 Midnight",
+    "fullTime": "Available and can fully dedicate time during the shift",
+    "cannot": "I cannot",
+    "yes": "Yes",
+    "no": "No",
+    "reqOption": "Please choose an answer for '{{q}}'",
+    "personalQ1": "1) Triple Name",
+    "personalQ1Placeholder": "Name",
+    "personalQ1Req": "Please enter your correct triple name",
+    "personalQ2": "2) Age",
+    "personalQ2Placeholder": "20",
+    "personalQ2Desc": "Enter numbers only (e.g. 25)",
+    "personalQ2Req": "Age must be numbers only",
+    "personalQ3": "3) Marital Status",
+    "maritalSingle": "Single",
+    "maritalEngaged": "Engaged",
+    "maritalMarried": "Married",
+    "maritalWidowed": "Widowed",
+    "maritalDivorced": "Divorced",
+    "personalQ3Req": "Please select a marital status",
+    "personalQ4": "4) WhatsApp Number",
+    "personalQ4Placeholder": "+201234567890",
+    "personalQ4Desc": "Write in a valid format (e.g. +201234567890 or 01234567890)",
+    "personalQ4Req": "Must be a valid number (digits and + sign only)",
+    "personalQ4Min": "WhatsApp number is too short",
+    "personalQ5": "5) Educational Qualification",
+    "personalQ5Placeholder": "e.g. Bachelor of Engineering...",
+    "personalQ5Req": "Please enter your educational qualification",
+    "personalQ6": "6) Have you finished your studies?",
+    "workQ1": "1) Have you worked in supervision before? What were your tasks?",
+    "workQ1Placeholder": "Yes, I worked as...",
+    "workQ1Desc": "Write briefly and clearly (or write I have never worked in supervision before)",
+    "workQ1Req": "Please write a valid answer",
+    "workQ2": "2) Your current job and working hours",
+    "workQ2Req": "Please enter your current job",
+    "workQ3": "3) Your previous jobs",
+    "workQ3Req": "Please enter your previous jobs",
+    "workQ4": "4) Attending trial classes for teachers to evaluate sessions is required",
+    "workQ5": "5) Is stable internet (Wi-Fi) available throughout the day?",
+    "netWifi": "Home Wi-Fi",
+    "netData": "Mobile Data",
+    "netBoth": "Both",
+    "distQ1": "1) What distinguishes you from others for you to be chosen to work with us?",
+    "distQ1Placeholder": "Write your answer here...",
+    "distQ1Desc": "Please write what distinguishes you from others correctly",
+    "distQ2": "2) What do you expect from the supervision work or its tasks?",
+    "distQ2Placeholder": "Write your expectations...",
+    "distQ2Desc": "Please write your expectations correctly",
+    "distQ3": "3) If a father wanted to register his children for online memorization but didn't think it's the best (and face-to-face is better for learning), write a message to convince him to try online memorization.",
+    "distQ3Note1": "This is a very important question in evaluations.",
+    "distQ3Note2": "(Replying in standard Arabic is important, avoid slang + avoid spelling mistakes)",
+    "distQ3Placeholder": "Write your message in standard Arabic...",
+    "distQ3Desc": "Please write a clear and strong convincing message correctly",
+    "policyTitle": "No stopping vacation before 6 months",
+    "policyDesc": "<span class=\"font-bold\">Academy Policy:</span> After the supervisor is accepted, it is required to continue working for at least 6 months before requesting to stop. In case of stopping, management must be informed 3 months in advance to prevent harm to the academy and to allow us to find and train a replacement.",
+    "policyCheck": "Declaration that all data is correct and matches reality",
+    "policyReq": "You must declare that the data is correct"
+  }
+}
