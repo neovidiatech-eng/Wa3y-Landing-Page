@@ -10,7 +10,6 @@ export function Layout() {
 
   return (
     <div
-      dir="rtl"
       className="font-['Cairo'] selection:bg-teal-100 selection:text-teal-900 bg-background overflow-x-hidden min-h-screen flex flex-col"
     >
       <div className="fixed inset-0 pattern-bg pointer-events-none" />
@@ -19,7 +18,7 @@ export function Layout() {
    
 <Header/>
       {/* Page Content with Transitions */}
-      <div className={`grow ${location.pathname !== "/" ? "pt-24 md:pt-28 lg:pt-32" : ""}`}>
+      <div className={`grow ${location.pathname !== "/" ? "pt-16 md:pt-20 lg:pt-24" : ""}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

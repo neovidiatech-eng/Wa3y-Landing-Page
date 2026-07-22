@@ -101,7 +101,7 @@
     "locationValue": "Cairo, Egypt"
   },
   "footer": {
-    "rights": "© {{year}} Wa3y Academy. All rights reserved.",
+    "rights": "© {{year}}Waai Academy. All rights reserved.",
     "designedBy": "Designed by",
     "privacyPolicy": "Privacy Policy",
     "termsConditions": "Terms & Conditions"
@@ -231,12 +231,12 @@
     "notFound": "Subject not found",
     "back": "Back to subjects",
     "courseTitle": "{{title}} Course",
-    "whyChoose": "Why choose {{title}} course <br className=\"hidden md:block\"/> at Wa3y Academy?",
+    "whyChoose": "Why choose {{title}} course <br className=\"hidden md:block\"/> atWaaiAcademy?",
     "registerTitle": "Register for {{title}} course",
     "registerDesc1": "Start your journey to understand and recite the Quran easily and professionally. The course will be specially designed to suit your needs and facilitate your guidance during the learning process.",
-    "registerDesc2": "Get a wonderful opportunity to learn and recite the Holy Quran in a way you will not forget. Join the {{title}} course at Wa3y Academy now.",
+    "registerDesc2": "Get a wonderful opportunity to learn and recite the Holy Quran in a way you will not forget. Join the {{title}} course atWaaiAcademy now.",
     "registerBtn": "Register Now",
-    "otherSubjects": "Wa3y Subjects",
+    "otherSubjects": "Waai Subjects",
     "defaultFeatures": [
       {
         "title": "Learn Arabic Language",
@@ -273,7 +273,7 @@
     ]
   },
   "application": {
-    "heroTitle": "Join 'Waai Academy' for teaching the Quran. If you are a Quran memorizer looking for an opportunity to work as a teacher in Wa3y Academy, here are the features, conditions, and requirements:",
+    "heroTitle": "Join 'Waai Academy' for teaching the Quran. If you are a Quran memorizer looking for an opportunity to work as a teacher inWaaiAcademy, here are the features, conditions, and requirements:",
     "applyNowBtn": "Apply Now",
     "readConditionsBtn": "View Conditions & Requirements",
     "startApplyBtn": "Start Applying",
@@ -297,7 +297,7 @@
     "stepperTitle": "Teacher Application",
     "stepOf": "Step {{current}} of {{total}}",
     "successTitle": "Your application has been submitted successfully!",
-    "successDesc": "Thank you for applying to join Wa3y Academy. Your application will be reviewed and we will contact you shortly.",
+    "successDesc": "Thank you for applying to joinWaaiAcademy. Your application will be reviewed and we will contact you shortly.",
     "newAppBtn": "Submit a new application",
     "nextBtn": "Next",
     "prevBtn": "Previous",

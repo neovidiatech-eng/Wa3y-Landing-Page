@@ -48,13 +48,21 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="flex flex-wrap gap-4 mt-4"
               >
-                <button className="px-8 py-4 bg-(--primary) text-white text-lg font-bold rounded-2xl flex items-center gap-3 shadow-xl hover:-translate-y-0.5 transition-all">
+                <a
+                  href="https://wa.me/+201000000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 bg-(--primary) text-white text-lg font-bold rounded-2xl flex items-center gap-3 shadow-xl hover:-translate-y-0.5 transition-all"
+                >
                   <span>{t("hero.ctaPrimary", "ابدأ حصتك المجانية الان")}</span>
                   <ArrowLeft className={`w-5 h-5 ${i18n.language.startsWith('en') ? 'rotate-180' : ''}`} />
-                </button>
-                <button className="px-8 py-4 bg-white border-2 border-slate-100 text-(--primary) text-lg font-bold rounded-2xl hover:bg-slate-50 transition-all">
+                </a>
+                <a
+                  href="#programs"
+                  className="px-8 py-4 bg-white border-2 border-slate-100 text-(--primary) text-lg font-bold rounded-2xl hover:bg-slate-50 transition-all"
+                >
                   {t("hero.ctaSecondary", "تصفح الخدمات")}
-                </button>
+                </a>
               </motion.div>
 
               <motion.div

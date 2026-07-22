@@ -16,10 +16,20 @@ export default function App() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const lang = i18n.language || "ar";
-    document.documentElement.dir = lang.startsWith("ar") ? "rtl" : "ltr";
-    document.documentElement.lang = lang.startsWith("ar") ? "ar" : "en";
-  }, [i18n.language]);
+    const updateDir = (lng: string) => {
+      const currentLng = lng || "ar";
+      const isAr = currentLng.startsWith("ar");
+      document.documentElement.dir = isAr ? "rtl" : "ltr";
+      document.documentElement.lang = isAr ? "ar" : "en";
+    };
+
+    updateDir(i18n.language);
+    i18n.on("languageChanged", updateDir);
+
+    return () => {
+      i18n.off("languageChanged", updateDir);
+    };
+  }, [i18n]);
 
   return (
     <>
