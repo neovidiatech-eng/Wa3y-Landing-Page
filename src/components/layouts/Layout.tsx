@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown} from "lucide-react";
-import { Link, Outlet, } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { IslamicPattern } from "../IslamicPattern";
 import Header from "./Header";
 import Footer from "./Footer";
 import { FaWhatsapp } from "react-icons/fa";
 
 export function Layout() {
+  const location = useLocation();
 
   return (
     <div
