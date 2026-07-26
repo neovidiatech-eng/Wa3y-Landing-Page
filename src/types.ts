@@ -36,27 +36,43 @@ export interface PlansResponse {
 }
 
 export interface ApplicationPayload {
-  full_name_3: string;
+  name: string;
+  email: string;
+  password?: string;
+  comfirmPassword?: string;
+  codeCountry?: string;
+  phone: string;
+  gender?: string;
+  country?: string;
+  nationality?: string;
+  timezone?: string;
+  city?: string;
   age: number;
-  marital_status: string;
-  whatsapp_number: string;
-  education: string;
-  finished_study: string;
-  agree_all_conditions: string;
-  salary_acceptance: string;
-  daily_work_no_weekly_off: string;
-  shift_selection: string;
-  all_day_availability: string;
-  can_use_tools: string;
-  agree_no_stopping_policy: string;
-  supervision_experience_details: string;
-  current_job_and_hours: string;
-  previous_jobs: string;
-  agree_attend_trial_sessions: string;
-  internet_stability: string;
-  why_choose_you: string;
-  supervision_role_idea: string;
-  convince_parent_message: string;
+  additionalData: {
+    marital_status?: string;
+    education: string;
+    finished_study: boolean;
+    agree_all_conditions: boolean;
+    salary_acceptance: boolean;
+    daily_work_no_weekly_off: boolean;
+    shift_selection: string;
+    all_day_availability: string;
+    can_use_tools: boolean;
+    agree_no_stopping_policy: boolean;
+    supervision_experience_details: string;
+    current_job_and_hours: string;
+    previous_jobs: string;
+    agree_attend_trial_sessions: boolean;
+    internet_stability: string;
+    why_choose_you: string;
+    supervision_role_idea: string;
+    convince_parent_message: string;
+  };
+}
+
+export interface VerifyAccountPayload {
+  email: string;
+  otp?: string;
 }
 
 export interface ApplicationResponse {
