@@ -14,90 +14,97 @@ import {
 } from "lucide-react";
 
 export const dashboardLink = "https://dashboard.waaiacademy.com";
+
 export const navLinks = [
-  { name: "الرئيسية", href: "#" },
-  { name: "من نحن", href: "#about" },
-  { name: "خدماتنا", href: "#services" },
-  { name: "لماذا نحن", href: "#why-us" },
-  { name: "آراء الطلاب", href: "#testimonials" },
-  { name: "تواصل معنا", href: "#contact" },
+  { name: "الرئيسية", nameKey: "nav.home", href: "/" },
+  { name: "عن الأكاديمية", nameKey: "nav.about", href: "/about" },
+  { name: "البرامج والمسارات", nameKey: "nav.programs", href: "/subjects" },
+  { name: "الخطط والأسعار", nameKey: "nav.plans", href: "/plans" },
+  { name: "تواصل معنا", nameKey: "nav.contact", href: "/contact" },
 ];
 
 export const services = [
   {
-    icon: BookOpen,
-    title: "حلقات تحفيظ القرآن أونلاين",
-    desc: "برامج تعليمية مرنة لجميع الأعمار بإشراف معلمين ومعلمات متخصصين مع متابعة مستمرة لتحقيق أفضل النتائج.",
-    accentClass: "from-teal-600 to-teal-800",
-    iconClass: "bg-teal-100 text-[var(--primary)]",
+    id: "islamic-education-kids",
+    titleKey: "services.islamic_education.title",
+    descKey: "services.islamic_education.desc",
+    image: "/images/quran_child_1.png",
+    isPrimary: false
   },
   {
-    icon: GraduationCap,
-    title: "برامج بناء الوعي التربوي",
-    desc: "تعليم القيم القرآنية وربط المعاني بالسلوك العملي لبناء شخصية مسلمة واعية ومتزنة تقتدي بالقرآن.",
-    accentClass: "from-dark to-slate-900",
-    iconClass: "bg-slate-100 text-[var(--dark)]",
+    id: "tajweed-adults",
+    titleKey: "services.tajweed_adults.title",
+    descKey: "services.tajweed_adults.desc",
+    image: "/images/quran_child_2.png",
+    isPrimary: false
   },
   {
-    icon: HeartHandshake,
-    title: "متابعة وتقارير دورية",
-    desc: "اختبارات وتقارير تقدم مستمرة لكل طالب مع خطط تطوير تساعد على الثبات والتحسن المستمر.",
-    accentClass: "from-accent to-amber-600",
-    iconClass: "bg-amber-100 text-[var(--accent)]",
+    id: "quran-non-arabic",
+    titleKey: "services.quran_non_arabic.title",
+    descKey: "services.quran_non_arabic.desc",
+    image: "/images/quran_child_3.png",
+    isPrimary: false
   },
+  {
+    id: "quran-memorization",
+    titleKey: "services.quran_memorization.title",
+    descKey: "services.quran_memorization.desc",
+    image: "/images/quran_child_4.png",
+    isPrimary: true
+  }
 ];
 
 export const whyUsSteps = [
   {
-    title: "منهج متكامل",
-    desc: "لا نركز على الحفظ المجرد فقط، بل نهتم بعمق بفهم المقاصد والتطبيق العملي لما يُحفظ في الحياة اليومية لتكون أخلاقهم القرآن.",
+    titleKey: "whyUs.curriculum.title",
+    descKey: "whyUs.curriculum.desc",
   },
   {
-    title: "معلمون متخصصون",
-    desc: "نخبة من المعلمين والمعلمات ذوي الخبرة الطويلة ليس فقط في علم التجويد، بل في فنون التربية والتعامل النفسي مع الأطفال والشباب.",
+    titleKey: "whyUs.teachers.title",
+    descKey: "whyUs.teachers.desc",
   },
   {
-    title: "تعليم أونلاين مرن",
-    desc: "تقنيات تعليمية حديثة تسمح للطلاب بالتعلم من أي مكان في العالم، مع أدوات تفاعلية تكسر حاجز الملل وتجعل الحلقة ممتعة.",
+    titleKey: "whyUs.flexible.title",
+    descKey: "whyUs.flexible.desc",
   },
   {
-    title: "متابعة شخصية دقيقة",
-    desc: "كل طالب لدينا هو حالة خاصة؛ له خطة تناسب قدراته وتقارير شهرية تطلع أولياء الأمور على أدق تفاصيل التقدم والتحسن.",
+    titleKey: "whyUs.followup.title",
+    descKey: "whyUs.followup.desc",
   },
 ];
 
 export const stats = [
-  { value: 500, label: "طالب وطالبة", icon: Users },
-  { value: 40, label: "معلم متخصص", icon: GraduationCap },
-  { value: 3000, label: "ساعة تعليمية", icon: Clock },
-  { value: 5, label: "سنوات خبرة", icon: Award },
+  { value: 500, labelKey: "stats.students", icon: Users },
+  { value: 40, labelKey: "stats.teachers", icon: GraduationCap },
+  { value: 3000, labelKey: "stats.hours", icon: Clock },
+  { value: 5, labelKey: "stats.experience", icon: Award },
 ];
 
 export const testimonials = [
   {
-    name: "أم محمد",
-    role: "ولي أمر",
-    comment: "ابني أصبح أكثر التزامًا وحبًا للقرآن بعد انضمامه للأكاديمية، والمتابعة رائعة جدًا وتحفز الطالب باستمرار.",
+    nameKey: "testimonials.t1.name",
+    roleKey: "testimonials.t1.role",
+    commentKey: "testimonials.t1.comment",
     rating: 5,
   },
   {
-    name: "أحمد خالد",
-    role: "طالب",
-    comment: "أكثر شيء أعجبني هو الجمع بين الحفظ وفهم المعاني بطريقة عملية ومبسطة، المعلمون هنا رائعون حقاً.",
+    nameKey: "testimonials.t2.name",
+    roleKey: "testimonials.t2.role",
+    commentKey: "testimonials.t2.comment",
     rating: 5,
   },
   {
-    name: "سارة علي",
-    role: "ولي أمر",
-    comment: "تجربة مميزة جدًا، المعلمات متعاونات والبيئة التعليمية محفزة ومريحة للطفل، أنصح بها بشدة.",
+    nameKey: "testimonials.t3.name",
+    roleKey: "testimonials.t3.role",
+    commentKey: "testimonials.t3.comment",
     rating: 5,
   },
 ];
 
 export const contactMethods = [
-  { icon: Phone, label: "الهاتف", value: "+20 100 000 0000", color: "bg-teal-50 text-teal-700" },
-  { icon: Mail, label: "البريد الإلكتروني", value: "info@waeiacademy.com", color: "bg-dark/5 text-dark" },
-  { icon: MapPin, label: "الموقع", value: "القاهرة، مصر", color: "bg-teal-50 text-teal-700" },
+  { icon: Phone, labelKey: "contact.phone", value: "+20 100 000 0000", color: "bg-teal-50 text-teal-700" },
+  { icon: Mail, labelKey: "contact.email", value: "info@waeiacademy.com", color: "bg-dark/5 text-dark" },
+  { icon: MapPin, labelKey: "contact.location", valueKey: "contact.locationValue", color: "bg-teal-50 text-teal-700" },
 ];
 
 export const socialLinks = [
