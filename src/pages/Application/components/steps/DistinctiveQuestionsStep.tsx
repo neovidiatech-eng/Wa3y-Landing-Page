@@ -3,34 +3,33 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useTranslation } from "react-i18next";
-import { Check } from "lucide-react";
 
-type DistinctiveQuestionsValues = {
-  q1: string;
-  q2: string;
-  q3: string;
-  agree: boolean;
+export type DistinctiveQuestionsValues = {
+  onlineTeachingExperience: string;
+  memorizesEntireQuran: 'نعم' | 'لا';
+  practicalTajweedLevel: string;
+  theoreticalTajweedLevel: string;
+  otherLanguages: string;
+  howDidYouHearAboutUs: string;
 };
 
 interface DistinctiveQuestionsStepProps {
   defaultValues?: Partial<DistinctiveQuestionsValues>;
   nextStep: (data: DistinctiveQuestionsValues) => void;
   prevStep: (data?: DistinctiveQuestionsValues) => void;
-  isSubmitting?: boolean;
 }
 
-export default function DistinctiveQuestionsStep({ defaultValues, nextStep, prevStep, isSubmitting }: DistinctiveQuestionsStepProps) {
+export default function DistinctiveQuestionsStep({ defaultValues, nextStep, prevStep }: DistinctiveQuestionsStepProps) {
   const { t } = useTranslation();
-
 
   const schema = useMemo(() => {
     return z.object({
-      q1: z.string().min(5, { message: t('application.distQ1Desc') }),
-      q2: z.string().min(5, { message: t('application.distQ2Desc') }),
-      q3: z.string().min(5, { message: t('application.distQ3Desc') }),
-      agree: z.boolean().refine(val => val === true, {
-        message: t('application.policyReq'),
-      }),
+      onlineTeachingExperience: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      memorizesEntireQuran: z.enum(['نعم', 'لا'], { message: t('application.required', 'مطلوب') }),
+      practicalTajweedLevel: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      theoreticalTajweedLevel: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      otherLanguages: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      howDidYouHearAboutUs: z.string().min(1, { message: t('application.required', 'مطلوب') }),
     });
   }, [t]);
 
@@ -48,93 +47,128 @@ export default function DistinctiveQuestionsStep({ defaultValues, nextStep, prev
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-fadeIn">
       <div className="space-y-6">
         
-        {/* Q1 */}
+        <h3 className="font-bold text-xl text-(--primary) flex items-center gap-2">
+          {t('application.quranTajweedTitle', 'القرآن الكريم والتجويد')}
+        </h3>
+
         <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.distQ1')}</label>
-          <textarea 
-            rows={3}
-            placeholder={t('application.distQ1Placeholder')}
-            {...register("q1")} 
-            className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent resize-y" 
-          />
-          <p className="text-gray-500 text-xs">{t('application.distQ1Desc')}</p>
-          {errors.q1 && <p className="text-red-500 text-sm">{errors.q1.message}</p>}
+          <label className="font-bold text-gray-800">{t('application.onlineTeachingExperience', 'عدد سنوات الخبرة في التعليم عبر الإنترنت (أون لاين)')} *</label>
+          <select 
+            {...register("onlineTeachingExperience")} 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+          >
+            <option value="">{t('application.select', 'اختر...')}</option>
+            <option value="بدون خبرة">بدون خبرة</option>
+            <option value="أقل من سنة">أقل من سنة</option>
+            <option value="1-3 سنوات">1-3 سنوات</option>
+            <option value="أكثر من 3 سنوات">أكثر من 3 سنوات</option>
+          </select>
+          {errors.onlineTeachingExperience && <p className="text-red-500 text-sm">{errors.onlineTeachingExperience.message}</p>}
         </div>
 
-        {/* Q2 */}
+        <RadioGroup 
+          label={t('application.memorizesEntireQuran', 'هل تحفظ القرآن كاملاً؟') + ' *'} 
+          name="memorizesEntireQuran" 
+          options={['نعم', 'لا']} 
+          register={register} 
+          error={errors.memorizesEntireQuran?.message} 
+        />
+
         <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.distQ2')}</label>
-          <textarea 
-            rows={3}
-            placeholder={t('application.distQ2Placeholder')}
-            {...register("q2")} 
-            className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent resize-y" 
+          <label className="font-bold text-gray-800">{t('application.practicalTajweedLevel', 'درجة إتقانك للتجويد عملياً (تلاوة وقراءة)؟')} *</label>
+          <select 
+            {...register("practicalTajweedLevel")} 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+          >
+            <option value="">{t('application.select', 'اختر...')}</option>
+            <option value="ممتاز">ممتاز</option>
+            <option value="جيد جداً">جيد جداً</option>
+            <option value="جيد">جيد</option>
+            <option value="مقبول">مقبول</option>
+          </select>
+          {errors.practicalTajweedLevel && <p className="text-red-500 text-sm">{errors.practicalTajweedLevel.message}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-bold text-gray-800">{t('application.theoreticalTajweedLevel', 'درجة إتقانك للتجويد نظرياً (حفظ وشرح القواعد)؟')} *</label>
+          <select 
+            {...register("theoreticalTajweedLevel")} 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+          >
+            <option value="">{t('application.select', 'اختر...')}</option>
+            <option value="ممتاز">ممتاز</option>
+            <option value="جيد جداً">جيد جداً</option>
+            <option value="جيد">جيد</option>
+            <option value="مقبول">مقبول</option>
+          </select>
+          {errors.theoreticalTajweedLevel && <p className="text-red-500 text-sm">{errors.theoreticalTajweedLevel.message}</p>}
+        </div>
+
+        <div className="h-px bg-gray-200 my-4"></div>
+        <h3 className="font-bold text-xl text-(--primary) flex items-center gap-2">
+          {t('application.additionalInfoTitle', 'معلومات إضافية')}
+        </h3>
+
+        <div className="space-y-2">
+          <label className="font-bold text-gray-800">{t('application.otherLanguages', 'هل لديك لغات أخرى')} *</label>
+          <select 
+            {...register("otherLanguages")} 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+          >
+            <option value="">{t('application.select', 'اختر...')}</option>
+            <option value="لا يوجد">لا يوجد</option>
+            <option value="الإنجليزية">الإنجليزية</option>
+            <option value="الفرنسية">الفرنسية</option>
+            <option value="لغات أخرى">لغات أخرى</option>
+          </select>
+          {errors.otherLanguages && <p className="text-red-500 text-sm">{errors.otherLanguages.message}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <label className="font-bold text-gray-800">{t('application.howDidYouHearAboutUs', 'كيف سمعت عنا؟')} *</label>
+          <input 
+            type="text" 
+            {...register("howDidYouHearAboutUs")} 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+            placeholder="فيسبوك، صديق، إلخ..."
           />
-          <p className="text-gray-500 text-xs">{t('application.distQ2Desc')}</p>
-          {errors.q2 && <p className="text-red-500 text-sm">{errors.q2.message}</p>}
+          {errors.howDidYouHearAboutUs && <p className="text-red-500 text-sm">{errors.howDidYouHearAboutUs.message}</p>}
         </div>
 
-        {/* Q3 */}
-        <div className="border border-blue-200 bg-blue-50/30 rounded-2xl p-6">
-          <div className="space-y-2">
-            <label className="font-bold text-blue-900 block mb-2 text-lg">
-              {t('application.distQ3')}
-            </label>
-            <p className="text-blue-800 font-bold text-sm">{t('application.distQ3Note1')}</p>
-            <p className="text-blue-600 text-xs mb-4">{t('application.distQ3Note2')}</p>
-            <textarea 
-              rows={5}
-              placeholder={t('application.distQ3Placeholder')}
-              {...register("q3")} 
-              className="w-full bg-white border border-blue-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent resize-y border-dashed" 
-            />
-            <p className="text-blue-500 text-xs">{t('application.distQ3Desc')}</p>
-            {errors.q3 && <p className="text-red-500 text-sm">{errors.q3.message}</p>}
-          </div>
-        </div>
-
-        {/* Policy & Agreement */}
-        <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4">
-          <p className="font-bold text-gray-800">{t('application.policyTitle')}</p>
-          <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: t('application.policyDesc') }}></p>
-          <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-200">
-            <input 
-              type="checkbox" 
-              id="agree" 
-              {...register("agree")} 
-              className="w-5 h-5 accent-(--primary) rounded text-(--primary) focus:ring-(--primary)" 
-            />
-            <label htmlFor="agree" className="text-gray-800 font-bold cursor-pointer">
-              {t('application.policyCheck')}
-            </label>
-          </div>
-          {errors.agree && <p className="text-red-500 text-sm">{errors.agree.message}</p>}
-        </div>
-        
       </div>
 
       <div className="flex justify-between pt-6 border-t border-gray-100">
-        <button type="button" onClick={() => prevStep(getValues())} className="px-6 py-2 text-gray-600 font-bold rounded-xl hover:bg-gray-50 transition-colors">
-          {t('application.prevBtn')}
+        <button type="button" onClick={handlePrev} className="border-2 border-gray-200 text-gray-600 hover:bg-gray-50 font-bold py-3 px-8 rounded-xl transition-colors">
+          {t('application.prevBtn', 'السابق')}
         </button>
         <button 
           type="submit" 
-          disabled={isSubmitting}
-          className="flex items-center gap-2 bg-(--primary) hover:bg-(--secondary) text-white font-bold py-3 px-8 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-(--primary) hover:bg-(--secondary) text-white font-bold py-3 px-10 rounded-xl transition-colors"
         >
-          {isSubmitting ? (
-            <span>...</span>
-          ) : (
-            <>
-              <span>{t('application.submitBtn')}</span>
-              <Check className="w-5 h-5" />
-            </>
-          )}
+          {t('application.nextBtn', 'التالي')}
         </button>
       </div>
     </form>
+  );
+}
+
+function RadioGroup({ label, name, options, register, error }: { label: string, name: string, options: string[], register: any, error?: string }) {
+  const { t } = useTranslation();
+  return (
+    <div className="space-y-3">
+      <p className="font-bold text-gray-800">{label}</p>
+      <div className="flex flex-wrap gap-4 md:gap-6">
+        {options.map((opt) => (
+          <label key={opt} className="flex items-center gap-2 cursor-pointer border border-gray-200 px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors">
+            <input type="radio" value={opt} {...register(name)} className="w-5 h-5 accent-(--primary)" />
+            <span className="text-gray-700 font-medium">{t(`application.${opt === 'نعم' ? 'yes' : 'no'}`, opt)}</span>
+          </label>
+        ))}
+      </div>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+    </div>
   );
 }

@@ -4,12 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useTranslation } from "react-i18next";
 
-type WorkExperienceValues = {
-  q1: string;
-  q2: string;
-  q3: string;
-  q4: string;
-  q5: string;
+export type WorkExperienceValues = {
+  hasCurrentJob: 'نعم' | 'لا';
+  hasFreeTimeFrom3To8: 'نعم' | 'لا';
+  dailyFreeTimeHours: string;
+  niqabDuringSession: 'نعم' | 'لا';
 };
 
 interface WorkExperienceStepProps {
@@ -23,17 +22,18 @@ export default function WorkExperienceStep({ defaultValues, nextStep, prevStep }
 
   const schema = useMemo(() => {
     return z.object({
-      q1: z.string().min(5, { message: t('application.workQ1Req') }),
-      q2: z.string().min(5, { message: t('application.workQ2Req') }),
-      q3: z.string().min(5, { message: t('application.workQ3Req') }),
-      q4: z.enum([t('application.agree'), t('application.disagree')], { message: t('application.reqOption', { q: t('application.workQ4') }) }),
-      q5: z.enum([t('application.netWifi'), t('application.netData'), t('application.netBoth')], { message: t('application.reqOption', { q: t('application.workQ5') }) }),
+      hasCurrentJob: z.enum(['نعم', 'لا'], { message: t('application.required', 'مطلوب') }),
+      hasFreeTimeFrom3To8: z.enum(['نعم', 'لا'], { message: t('application.required', 'مطلوب') }),
+      dailyFreeTimeHours: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      niqabDuringSession: z.enum(['نعم', 'لا'], { message: t('application.required', 'مطلوب') }),
     });
   }, [t]);
 
   const { register, handleSubmit, getValues, formState: { errors } } = useForm<WorkExperienceValues>({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+    },
   });
 
   const onSubmit = (data: WorkExperienceValues) => {
@@ -45,60 +45,50 @@ export default function WorkExperienceStep({ defaultValues, nextStep, prevStep }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-fadeIn">
       <div className="space-y-6">
         
-        {/* Q1 */}
-        <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.workQ1')}</label>
-          <textarea 
-            rows={4}
-            placeholder={t('application.workQ1Placeholder')}
-            {...register("q1")} 
-            className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent resize-y" 
-          />
-          <p className="text-gray-500 text-xs">{t('application.workQ1Desc')}</p>
-          {errors.q1 && <p className="text-red-500 text-sm">{errors.q1.message}</p>}
-        </div>
+        <h3 className="font-bold text-xl text-(--primary) flex items-center gap-2">
+          {t('application.timeAvailabilityTitle', 'الوقت والتفرغ')}
+        </h3>
 
-        {/* Q2 */}
-        <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.workQ2')}</label>
-          <textarea 
-            rows={3}
-            {...register("q2")} 
-            className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent resize-y" 
-          />
-          {errors.q2 && <p className="text-red-500 text-sm">{errors.q2.message}</p>}
-        </div>
-
-        {/* Q3 */}
-        <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.workQ3')}</label>
-          <textarea 
-            rows={3}
-            {...register("q3")} 
-            className="w-full bg-gray-50 border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent resize-y" 
-          />
-          {errors.q3 && <p className="text-red-500 text-sm">{errors.q3.message}</p>}
-        </div>
-
-        {/* Q4 */}
         <RadioGroup 
-          label={t('application.workQ4')} 
-          name="q4" 
-          options={[t('application.agree'), t('application.disagree')]} 
+          label={t('application.hasCurrentJob', 'هل لديك عمل حالي؟') + ' *'} 
+          name="hasCurrentJob" 
+          options={['نعم', 'لا']} 
           register={register} 
-          error={errors.q4?.message} 
+          error={errors.hasCurrentJob?.message} 
         />
 
-        {/* Q5 */}
         <RadioGroup 
-          label={t('application.workQ5')} 
-          name="q5" 
-          options={[t('application.netWifi'), t('application.netData'), t('application.netBoth')]} 
+          label={t('application.hasFreeTimeFrom3To8', 'هل لديك وقت فراغ من الساعة 3 مساءاً إلى الساعة 8 مساءاً؟') + ' *'} 
+          name="hasFreeTimeFrom3To8" 
+          options={['نعم', 'لا']} 
           register={register} 
-          error={errors.q5?.message} 
+          error={errors.hasFreeTimeFrom3To8?.message} 
+        />
+
+        <div className="space-y-2">
+          <label className="font-bold text-gray-800">{t('application.dailyFreeTimeHours', 'كم ساعة متاحة لديك كوقت فراغ (يومياً)؟')} *</label>
+          <select 
+            {...register("dailyFreeTimeHours")} 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+          >
+            <option value="">{t('application.select', 'اختر...')}</option>
+            <option value="1-2 ساعات">1-2 ساعات</option>
+            <option value="3-4 ساعات">3-4 ساعات</option>
+            <option value="5-6 ساعات">5-6 ساعات</option>
+            <option value="أكثر من 6 ساعات">أكثر من 6 ساعات</option>
+          </select>
+          {errors.dailyFreeTimeHours && <p className="text-red-500 text-sm">{errors.dailyFreeTimeHours.message}</p>}
+        </div>
+
+        <RadioGroup 
+          label={t('application.niqabDuringSession', 'هل تمانعي رفع النقاب أثناء الحلقة؟') + ' *'} 
+          name="niqabDuringSession" 
+          options={['نعم', 'لا']} 
+          register={register} 
+          error={errors.niqabDuringSession?.message} 
         />
         
       </div>
@@ -109,13 +99,13 @@ export default function WorkExperienceStep({ defaultValues, nextStep, prevStep }
           onClick={handlePrev}
           className="border-2 border-gray-200 text-gray-600 hover:bg-gray-50 font-bold py-3 px-8 rounded-xl transition-colors"
         >
-          {t('application.prevBtn')}
+          {t('application.prevBtn', 'السابق')}
         </button>
         <button 
           type="submit" 
           className="bg-(--primary) hover:bg-(--secondary) text-white font-bold py-3 px-10 rounded-xl transition-colors"
         >
-          {t('application.nextBtn')}
+          {t('application.nextBtn', 'التالي')}
         </button>
       </div>
     </form>
@@ -123,6 +113,7 @@ export default function WorkExperienceStep({ defaultValues, nextStep, prevStep }
 }
 
 function RadioGroup({ label, name, options, register, error }: { label: string, name: string, options: string[], register: any, error?: string }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-3">
       <p className="font-bold text-gray-800">{label}</p>
@@ -130,7 +121,7 @@ function RadioGroup({ label, name, options, register, error }: { label: string, 
         {options.map((opt) => (
           <label key={opt} className="flex items-center gap-2 cursor-pointer border border-gray-200 px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors">
             <input type="radio" value={opt} {...register(name)} className="w-5 h-5 accent-(--primary)" />
-            <span className="text-gray-700 font-medium">{opt}</span>
+            <span className="text-gray-700 font-medium">{t(`application.${opt === 'نعم' ? 'yes' : 'no'}`, opt)}</span>
           </label>
         ))}
       </div>

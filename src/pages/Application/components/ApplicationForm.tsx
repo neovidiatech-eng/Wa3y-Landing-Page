@@ -17,10 +17,10 @@ export default function ApplicationForm() {
   const { mutate: handleVerifyAccount, isPending: isVerifying } = useVerifyAccount();
 
   const steps = [
-    t('application.step1'),
-    t('application.step2'),
-    t('application.step3'),
-    t('application.step4')
+    t('application.step1', 'البيانات الشخصية'),
+    t('application.step2', 'الخبرات والإشراف'),
+    t('application.step3', 'التفرغ والمهارات'),
+    t('application.step4', 'شروط العمل')
   ];
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -56,69 +56,47 @@ export default function ApplicationForm() {
     }
   };
 
-  const handleSubmit = (distinctiveData: any) => {
+  const handleSubmit = (termsData: any) => {
     setSubmitError(null);
     if (reset) reset();
 
     const updatedFormData = {
       ...formData,
-      distinctive: distinctiveData
-    };
-
-    const isTrueValue = (val: any) => {
-      if (typeof val === 'boolean') return val;
-      if (!val) return false;
-      const str = String(val).trim().toLowerCase();
-      return (
-        str === 'true' ||
-        str === '1' ||
-        str === 'yes' ||
-        str === 'أوافق' ||
-        str === 'نعم' ||
-        str === t('application.agree').toLowerCase() ||
-        str === t('application.yes').toLowerCase()
-      );
+      terms: termsData
     };
 
     const payload: ApplicationPayload = {
-      // Personal & Account Data
-      name: updatedFormData.personal.fullName || updatedFormData.personal.name || "",
+      name: updatedFormData.personal.fullName || "",
       email: updatedFormData.personal.email || "",
       password: updatedFormData.personal.password || "",
       comfirmPassword: updatedFormData.personal.comfirmPassword || updatedFormData.personal.password || "",
       codeCountry: updatedFormData.personal.codeCountry || "+20",
-      phone: updatedFormData.personal.phone || updatedFormData.personal.whatsapp || "",
-      gender: updatedFormData.personal.gender || "male",
-      country: updatedFormData.personal.country || "Egypt",
-      nationality: updatedFormData.personal.nationality || "Egyptian",
-      timezone: updatedFormData.personal.timezone || (typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : "Africa/Cairo") || "Africa/Cairo",
-      city: updatedFormData.personal.city || "Cairo",
-      age: Number(updatedFormData.personal.age) || 0,
+      phone: updatedFormData.personal.whatsappNumber || "",
+      gender: updatedFormData.personal.gender || "female",
+      country: "Egypt",
+      nationality: "Egyptian",
+      timezone: typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : "Africa/Cairo",
+      city: "Cairo",
+      age: parseInt(updatedFormData.personal.age) || 0,
+      notes: termsData.notes || "",
       additionalData: {
-        marital_status: updatedFormData.personal.maritalStatus || "",
-        education: updatedFormData.personal.education || "",
-        finished_study: isTrueValue(updatedFormData.personal.finishedStudy),
-
-        // Terms
-        agree_all_conditions: isTrueValue(updatedFormData.terms.q1),
-        salary_acceptance: isTrueValue(updatedFormData.terms.q2),
-        daily_work_no_weekly_off: isTrueValue(updatedFormData.terms.q3),
-        shift_selection: updatedFormData.terms.q4 || "",
-        all_day_availability: updatedFormData.terms.q5 || "",
-        can_use_tools: isTrueValue(updatedFormData.terms.q6),
-        agree_no_stopping_policy: isTrueValue(updatedFormData.terms.q7),
-
-        // Work Experience
-        supervision_experience_details: updatedFormData.work.q1 || "",
-        current_job_and_hours: updatedFormData.work.q2 || "",
-        previous_jobs: updatedFormData.work.q3 || "",
-        agree_attend_trial_sessions: isTrueValue(updatedFormData.work.q4),
-        internet_stability: updatedFormData.work.q5 || "",
-
-        // Distinctive Questions
-        why_choose_you: distinctiveData.q1 || "",
-        supervision_role_idea: distinctiveData.q2 || "",
-        convince_parent_message: distinctiveData.q3 || "",
+        whatsappNumber: updatedFormData.personal.whatsappNumber || "",
+        birthDate: updatedFormData.personal.birthDate || "",
+        qualification: updatedFormData.personal.qualification || "",
+        hasPersonalLaptop: updatedFormData.personal.hasPersonalLaptop === "نعم",
+        governorate: updatedFormData.personal.governorate || "",
+        maritalStatus: updatedFormData.personal.maritalStatus || "",
+        hasCurrentJob: updatedFormData.work.hasCurrentJob === "نعم",
+        hasFreeTimeFrom3To8: updatedFormData.work.hasFreeTimeFrom3To8 === "نعم",
+        dailyFreeTimeHours: updatedFormData.work.dailyFreeTimeHours || "",
+        niqabDuringSession: updatedFormData.work.niqabDuringSession === "نعم",
+        onlineTeachingExperience: updatedFormData.distinctive.onlineTeachingExperience || "",
+        memorizesEntireQuran: updatedFormData.distinctive.memorizesEntireQuran === "نعم" ? "yes" : "no",
+        howDidYouHearAboutUs: updatedFormData.distinctive.howDidYouHearAboutUs || "",
+        practicalTajweedLevel: updatedFormData.distinctive.practicalTajweedLevel || "",
+        theoreticalTajweedLevel: updatedFormData.distinctive.theoreticalTajweedLevel || "",
+        otherLanguages: updatedFormData.distinctive.otherLanguages || "",
+        agreedToWorkConditions: termsData.agreedToWorkConditions || false,
       },
     };
 
@@ -313,31 +291,31 @@ export default function ApplicationForm() {
 
         <div className="mt-8">
           {currentStep === 1 && (
-            <TermsStep 
-              defaultValues={formData.terms}
-              nextStep={(data) => { updateFormData("terms", data); nextStep(); }} 
-            />
-          )}
-          {currentStep === 2 && (
             <PersonalDataStep 
               defaultValues={formData.personal}
               nextStep={(data) => { updateFormData("personal", data); nextStep(); }} 
-              prevStep={(data) => prevStep("personal", data)} 
             />
           )}
-          {currentStep === 3 && (
+          {currentStep === 2 && (
             <WorkExperienceStep 
               defaultValues={formData.work}
               nextStep={(data) => { updateFormData("work", data); nextStep(); }} 
               prevStep={(data) => prevStep("work", data)} 
             />
           )}
-          {currentStep === 4 && (
+          {currentStep === 3 && (
             <DistinctiveQuestionsStep 
               defaultValues={formData.distinctive}
-              isSubmitting={isPending}
+              nextStep={(data) => { updateFormData("distinctive", data); nextStep(); }} 
               prevStep={(data) => prevStep("distinctive", data)} 
-              nextStep={(data) => { updateFormData("distinctive", data); handleSubmit(data); }} 
+            />
+          )}
+          {currentStep === 4 && (
+            <TermsStep 
+              defaultValues={formData.terms}
+              isSubmitting={isPending}
+              prevStep={(data) => prevStep("terms", data)} 
+              nextStep={(data) => { updateFormData("terms", data); handleSubmit(data); }} 
             />
           )}
         </div>
