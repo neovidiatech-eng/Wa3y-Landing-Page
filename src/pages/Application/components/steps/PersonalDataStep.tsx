@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -10,155 +10,108 @@ export type PersonalDataValues = {
   email: string;
   password?: string;
   comfirmPassword?: string;
-  codeCountry?: string;
-  phone: string;
-  gender?: string;
-  country?: string;
-  nationality?: string;
-  timezone?: string;
-  city?: string;
+  codeCountry: string;
+  whatsappNumber: string;
   age: string;
+  gender: 'male' | 'female';
+  birthDate: string;
+  qualification: string;
+  hasPersonalLaptop: 'نعم' | 'لا';
+  governorate: string;
   maritalStatus: string;
-  whatsapp: string;
-  education: string;
-  finishedStudy: string;
 };
 
 interface PersonalDataStepProps {
   defaultValues?: Partial<PersonalDataValues>;
   nextStep: (data: PersonalDataValues) => void;
-  prevStep: (data?: PersonalDataValues) => void;
 }
 
-const COUNTRY_CODES = [
-  { code: "+20", label: "مصر (+20)" },
-  { code: "+966", label: "السعودية (+966)" },
-  { code: "+971", label: "الإمارات (+971)" },
-  { code: "+965", label: "الكويت (+965)" },
-  { code: "+974", label: "قطر (+974)" },
-  { code: "+968", label: "عُمان (+968)" },
-  { code: "+962", label: "الأردن (+962)" },
-  { code: "+961", label: "لبنان (+961)" },
-  { code: "+212", label: "المغرب (+212)" },
-  { code: "+213", label: "الجزائر (+213)" },
-  { code: "+216", label: "تونس (+216)" },
-  { code: "+249", label: "السودان (+249)" },
-  { code: "+90", label: "تركيا (+90)" },
-  { code: "+1", label: "أمريكا / كندا (+1)" },
-  { code: "+44", label: "المملكة المتحدة (+44)" },
-];
-
-export default function PersonalDataStep({ defaultValues, nextStep, prevStep }: PersonalDataStepProps) {
+export default function PersonalDataStep({ defaultValues, nextStep }: PersonalDataStepProps) {
   const { t } = useTranslation();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const schema = useMemo(() => {
     return z.object({
-      fullName: z.string().min(3, { message: t('application.personalQ1Req') }),
-      email: z.string().email({ message: t('application.emailReq', { defaultValue: 'يرجى إدخال بريد إلكتروني صحيح' }) }),
-      password: z.string().optional(),
-      comfirmPassword: z.string().optional(),
-      codeCountry: z.string().optional().default("+20"),
-      phone: z.string().min(6, { message: t('application.personalQ4Req') }),
-      gender: z.string().optional().default("male"),
-      country: z.string().optional().default("Egypt"),
-      nationality: z.string().optional().default("Egyptian"),
-      city: z.string().optional().default("Cairo"),
-      age: z.string().regex(/^\d+$/, { message: t('application.personalQ2Req') }),
-      maritalStatus: z.enum([
-        t('application.maritalSingle'), 
-        t('application.maritalEngaged'), 
-        t('application.maritalMarried'), 
-        t('application.maritalWidowed'), 
-        t('application.maritalDivorced')
-      ], { message: t('application.personalQ3Req') }),
-      whatsapp: z.string().regex(/^[0-9+]+$/, { message: t('application.personalQ4Req') }).min(10, { message: t('application.personalQ4Min') }),
-      education: z.string().min(3, { message: t('application.personalQ5Req') }),
-      finishedStudy: z.enum([t('application.yes'), t('application.no')], { message: t('application.reqOption', { q: t('application.personalQ6') }) }),
-      timezone: z.string().optional(),
-    }).refine((data) => !data.password || !data.comfirmPassword || data.password === data.comfirmPassword, {
-      message: t('application.confirmPasswordMatch', { defaultValue: 'تأكيد كلمة المرور يجب أن يطابق كلمة المرور' }),
-      path: ['comfirmPassword'],
+      fullName: z.string().min(3, { message: t('application.nameMin', 'يجب أن يكون الاسم 3 أحرف على الأقل') }),
+      email: z.string().email({ message: t('application.emailInvalid', 'البريد الإلكتروني غير صالح') }),
+      password: z.string().min(6, { message: t('application.passwordMin', 'يجب أن تكون كلمة المرور 6 أحرف على الأقل') }).optional().or(z.literal('')),
+      comfirmPassword: z.string().optional().or(z.literal('')),
+      codeCountry: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      whatsappNumber: z.string().min(8, { message: t('application.phoneMin', 'رقم الهاتف قصير جداً') }),
+      age: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      gender: z.enum(['male', 'female'], { message: t('application.required', 'مطلوب') }),
+      birthDate: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      qualification: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      hasPersonalLaptop: z.enum(['نعم', 'لا'], { message: t('application.required', 'مطلوب') }),
+      governorate: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      maritalStatus: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+    }).refine((data) => {
+      if (data.password && data.password !== data.comfirmPassword) {
+        return false;
+      }
+      return true;
+    }, {
+      message: t('application.passwordMatch', 'كلمات المرور غير متطابقة'),
+      path: ["comfirmPassword"],
     });
   }, [t]);
 
-  const { register, handleSubmit, getValues, formState: { errors } } = useForm<PersonalDataValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<PersonalDataValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       codeCountry: "+20",
-      gender: "male",
-      country: "Egypt",
-      nationality: "Egyptian",
-      city: "Cairo",
       ...defaultValues,
     },
   });
 
   const onSubmit = (data: PersonalDataValues) => {
-    // Auto-detect timezone
-    data.timezone = typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : "Africa/Cairo";
-
-    // Ensure phone/whatsapp sync if needed
-    if (!data.phone && data.whatsapp) {
-      data.phone = data.whatsapp;
-    }
-    if (!data.comfirmPassword && data.password) {
-      data.comfirmPassword = data.password;
-    }
     nextStep(data);
   };
 
-  const handlePrev = () => {
-    prevStep(getValues());
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 animate-fadeIn">
+      
       <div className="space-y-6">
-        {/* Full Name */}
+        <h3 className="font-bold text-xl text-(--primary) flex items-center gap-2">
+          {t('application.personalDataTitle', 'البيانات الشخصية')}
+        </h3>
+
         <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.personalQ1')}</label>
+          <label className="font-bold text-gray-800">{t('application.fullName', 'الاسم ثلاثي')} *</label>
           <input 
             type="text" 
-            placeholder={t('application.personalQ1Placeholder')}
             {...register("fullName")} 
-            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+            placeholder={t('application.fullNamePlaceholder', 'أدخل اسمك ثلاثي')}
           />
           {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName.message}</p>}
         </div>
 
-        {/* Email Address */}
         <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.emailLabel', 'البريد الإلكتروني')}</label>
+          <label className="font-bold text-gray-800">{t('application.email', 'البريد الإلكتروني')} *</label>
           <input 
             type="email" 
-            dir="ltr"
-            placeholder={t('application.emailPlaceholder', 'example@domain.com')}
             {...register("email")} 
-            className="w-full text-right border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
+            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all text-left dir-ltr"
+            placeholder="example@gmail.com"
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         </div>
 
-        {/* Password & Confirm Password (Identical layout with show/hide toggle) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="font-bold text-gray-800">{t('application.passwordLabel', 'كلمة المرور')}</label>
+            <label className="font-bold text-gray-800">{t('application.password', 'كلمة المرور (اختياري)')}</label>
             <div className="relative">
               <input 
                 type={showPassword ? "text" : "password"}
-                dir="ltr"
-                placeholder={t('application.passwordPlaceholder', '••••••••')}
                 {...register("password")} 
-                className="w-full text-right border border-gray-200 pl-11 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
+                className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all text-left dir-ltr pr-10"
+                placeholder="••••••••"
               />
-              <button
-                type="button"
+              <button 
+                type="button" 
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1 transition-colors"
-                tabIndex={-1}
-                aria-label="Toggle password visibility"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -167,173 +120,133 @@ export default function PersonalDataStep({ defaultValues, nextStep, prevStep }: 
           </div>
 
           <div className="space-y-2">
-            <label className="font-bold text-gray-800">{t('application.confirmPasswordLabel', 'تأكيد كلمة المرور')}</label>
-            <div className="relative">
-              <input 
-                type={showConfirmPassword ? "text" : "password"}
-                dir="ltr"
-                placeholder={t('application.passwordPlaceholder', '••••••••')}
-                {...register("comfirmPassword")} 
-                className="w-full text-right border border-gray-200 pl-11 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none p-1 transition-colors"
-                tabIndex={-1}
-                aria-label="Toggle confirm password visibility"
-              >
-                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-              </button>
-            </div>
+            <label className="font-bold text-gray-800">{t('application.comfirmPassword', 'تأكيد كلمة المرور')}</label>
+            <input 
+              type={showPassword ? "text" : "password"}
+              {...register("comfirmPassword")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all text-left dir-ltr"
+              placeholder="••••••••"
+            />
             {errors.comfirmPassword && <p className="text-red-500 text-sm">{errors.comfirmPassword.message}</p>}
           </div>
         </div>
 
-        {/* Country Code & Phone Number */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="space-y-2 col-span-1">
-            <label className="font-bold text-gray-800">{t('application.codeCountry', 'كود الدولة')}</label>
-            <select 
-              dir="ltr"
-              {...register("codeCountry")} 
-              className="w-full text-center border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white font-mono transition-all" 
-            >
-              {COUNTRY_CODES.map((c) => (
-                <option key={c.code} value={c.code}>{c.label}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2 col-span-2">
-            <label className="font-bold text-gray-800">{t('application.phoneLabel', 'رقم الهاتف')}</label>
-            <input 
-              type="text" 
-              dir="ltr"
-              placeholder="1001234567"
-              {...register("phone")} 
-              className="w-full text-right border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-            />
-            {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
-          </div>
-        </div>
-
-        {/* WhatsApp Number */}
         <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.personalQ4')}</label>
-          <input 
-            type="text" 
-            dir="ltr"
-            placeholder={t('application.personalQ4Placeholder')}
-            {...register("whatsapp")} 
-            className="w-full text-right border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-          />
-          <p className="text-gray-500 text-xs">{t('application.personalQ4Desc')}</p>
-          {errors.whatsapp && <p className="text-red-500 text-sm">{errors.whatsapp.message}</p>}
+          <label className="font-bold text-gray-800">{t('application.whatsapp', 'رقم الواتساب')} *</label>
+          <div className="flex" dir="ltr">
+            <select 
+              {...register("codeCountry")}
+              className="border border-gray-200 border-r-0 px-3 py-3 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-(--primary) bg-gray-50 text-gray-700 w-24 text-center"
+            >
+              <option value="+20">+20</option>
+              <option value="+966">+966</option>
+              <option value="+971">+971</option>
+              <option value="+965">+965</option>
+              <option value="+212">+212</option>
+              <option value="+213">+213</option>
+            </select>
+            <input 
+              type="tel" 
+              {...register("whatsappNumber")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-r-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+              placeholder="10xxxxxxxxx"
+            />
+          </div>
+          {errors.whatsappNumber && <p className="text-red-500 text-sm text-right">{errors.whatsappNumber.message}</p>}
         </div>
 
-        {/* Gender, Country, City */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="font-bold text-gray-800">{t('application.genderLabel', 'الجنس')}</label>
+            <label className="font-bold text-gray-800">{t('application.age', 'العمر')} *</label>
+            <input 
+              type="number" 
+              {...register("age")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) bg-white transition-all"
+              placeholder="25"
+            />
+            {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}
+          </div>
+          
+          <div className="space-y-2">
+            <label className="font-bold text-gray-800">{t('application.gender', 'الجنس')} *</label>
             <select 
               {...register("gender")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) bg-white transition-all"
+            >
+              <option value="male">{t('application.male', 'ذكر')}</option>
+              <option value="female">{t('application.female', 'أنثى')}</option>
+            </select>
+            {errors.gender && <p className="text-red-500 text-sm">{errors.gender.message}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-bold text-gray-800">{t('application.birthDate', 'تاريخ الميلاد')} *</label>
+            <input 
+              type="date" 
+              {...register("birthDate")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
+            />
+            {errors.birthDate && <p className="text-red-500 text-sm">{errors.birthDate.message}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <label className="font-bold text-gray-800">{t('application.governorate', 'المحافظة')} *</label>
+            <input 
+              type="text" 
+              {...register("governorate")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) bg-white transition-all"
+              placeholder="القاهرة..."
+            />
+            {errors.governorate && <p className="text-red-500 text-sm">{errors.governorate.message}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-bold text-gray-800">{t('application.maritalStatus', 'الحالة الاجتماعية')} *</label>
+            <select 
+              {...register("maritalStatus")} 
               className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent bg-white transition-all"
             >
-              <option value="male">{t('application.genderMale', 'ذكر')}</option>
-              <option value="female">{t('application.genderFemale', 'أنثى')}</option>
+              <option value="">{t('application.select', 'اختر...')}</option>
+              <option value="أعزب">أعزب</option>
+              <option value="متزوج">متزوج</option>
+              <option value="مطلق">مطلق</option>
+              <option value="أرمل">أرمل</option>
             </select>
+            {errors.maritalStatus && <p className="text-red-500 text-sm">{errors.maritalStatus.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <label className="font-bold text-gray-800">{t('application.countryLabel', 'الدولة')}</label>
+            <label className="font-bold text-gray-800">{t('application.qualification', 'المؤهل الدراسي')} *</label>
             <input 
               type="text" 
-              placeholder="Egypt"
-              {...register("country")} 
-              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
+              {...register("qualification")} 
+              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) bg-white transition-all"
+              placeholder="بكالوريوس..."
             />
-          </div>
-
-          <div className="space-y-2">
-            <label className="font-bold text-gray-800">{t('application.cityLabel', 'المدينة')}</label>
-            <input 
-              type="text" 
-              placeholder="Cairo"
-              {...register("city")} 
-              className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-            />
+            {errors.qualification && <p className="text-red-500 text-sm">{errors.qualification.message}</p>}
           </div>
         </div>
 
-        {/* Nationality */}
-        <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.nationalityLabel', 'الجنسية')}</label>
-          <input 
-            type="text" 
-            placeholder="Egyptian"
-            {...register("nationality")} 
-            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-          />
-        </div>
-
-        {/* Age */}
-        <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.personalQ2')}</label>
-          <input 
-            type="text" 
-            placeholder={t('application.personalQ2Placeholder')}
-            {...register("age")} 
-            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-          />
-          <p className="text-gray-500 text-xs">{t('application.personalQ2Desc')}</p>
-          {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}
-        </div>
-
-        {/* Marital Status */}
         <RadioGroup 
-          label={t('application.personalQ3')} 
-          name="maritalStatus" 
-          options={[t('application.maritalSingle'), t('application.maritalEngaged'), t('application.maritalMarried'), t('application.maritalWidowed'), t('application.maritalDivorced')]} 
+          label={t('application.hasPersonalLaptop', 'هل لديك لاب توب شخصي؟') + ' *'} 
+          name="hasPersonalLaptop" 
+          options={['نعم', 'لا']} 
           register={register} 
-          error={errors.maritalStatus?.message} 
+          error={errors.hasPersonalLaptop?.message} 
         />
 
-        {/* Education */}
-        <div className="space-y-2">
-          <label className="font-bold text-gray-800">{t('application.personalQ5')}</label>
-          <input 
-            type="text" 
-            placeholder={t('application.personalQ5Placeholder')}
-            {...register("education")} 
-            className="w-full border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) focus:border-transparent transition-all" 
-          />
-          {errors.education && <p className="text-red-500 text-sm">{errors.education.message}</p>}
-        </div>
-
-        {/* Finished Study */}
-        <RadioGroup 
-          label={t('application.personalQ6')} 
-          name="finishedStudy" 
-          options={[t('application.yes'), t('application.no')]} 
-          register={register} 
-          error={errors.finishedStudy?.message} 
-        />
       </div>
 
-      <div className="flex justify-between pt-6 border-t border-gray-100">
-        <button 
-          type="button" 
-          onClick={handlePrev}
-          className="border-2 border-gray-200 text-gray-600 hover:bg-gray-50 font-bold py-3 px-8 rounded-xl transition-colors"
-        >
-          {t('application.prevBtn')}
-        </button>
+      <div className="flex justify-end pt-6 border-t border-gray-100">
         <button 
           type="submit" 
           className="bg-(--primary) hover:bg-(--secondary) text-white font-bold py-3 px-10 rounded-xl transition-colors"
         >
-          {t('application.nextBtn')}
+          {t('application.nextBtn', 'التالي')}
         </button>
       </div>
     </form>
@@ -341,6 +254,7 @@ export default function PersonalDataStep({ defaultValues, nextStep, prevStep }: 
 }
 
 function RadioGroup({ label, name, options, register, error }: { label: string, name: string, options: string[], register: any, error?: string }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-3">
       <p className="font-bold text-gray-800">{label}</p>

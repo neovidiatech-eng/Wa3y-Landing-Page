@@ -48,25 +48,25 @@ export interface ApplicationPayload {
   timezone?: string;
   city?: string;
   age: number;
+  notes?: string;
   additionalData: {
-    marital_status?: string;
-    education: string;
-    finished_study: boolean;
-    agree_all_conditions: boolean;
-    salary_acceptance: boolean;
-    daily_work_no_weekly_off: boolean;
-    shift_selection: string;
-    all_day_availability: string;
-    can_use_tools: boolean;
-    agree_no_stopping_policy: boolean;
-    supervision_experience_details: string;
-    current_job_and_hours: string;
-    previous_jobs: string;
-    agree_attend_trial_sessions: boolean;
-    internet_stability: string;
-    why_choose_you: string;
-    supervision_role_idea: string;
-    convince_parent_message: string;
+    whatsappNumber: string;
+    birthDate: string;
+    qualification: string;
+    hasPersonalLaptop: boolean;
+    governorate: string;
+    maritalStatus: string;
+    hasCurrentJob: boolean;
+    hasFreeTimeFrom3To8: boolean;
+    dailyFreeTimeHours: string;
+    niqabDuringSession: boolean;
+    onlineTeachingExperience: string;
+    memorizesEntireQuran: string;
+    howDidYouHearAboutUs: string;
+    practicalTajweedLevel: string;
+    theoreticalTajweedLevel: string;
+    otherLanguages: string;
+    agreedToWorkConditions: boolean;
   };
 }
 
