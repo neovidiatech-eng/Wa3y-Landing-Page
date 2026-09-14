@@ -10,7 +10,9 @@ import { Testimonials } from "./pages/Testimonials";
 import { Contact } from "./pages/Contact";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import Applicstion from "./pages/Application/Applicstion";
+import Applicstion from "./pages/Application/SupervisorApplicstion";
+import TeacherApplication from "./pages/Application/TeacherApplication";
+import JoinUs from "./pages/JoinUs/JoinUs";
 
 export default function App() {
   const { i18n } = useTranslation();
@@ -43,7 +45,9 @@ export default function App() {
             <Route path="subjects/:id" element={<SubjectDetails />} />
             <Route path="plans" element={<Plans />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="application" element={<Applicstion />} />
+            <Route path="supervisor-application" element={<Applicstion />} />
+            <Route path="teacher-application" element={<TeacherApplication />} />
+            <Route path="join-us" element={<JoinUs />} />
           </Route>
         </Routes>
       </BrowserRouter>

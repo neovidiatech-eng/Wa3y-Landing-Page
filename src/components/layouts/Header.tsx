@@ -107,7 +107,7 @@ export default function Header() {
             <motion.button
              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/application")}
+              onClick={() => navigate("/join-us")}
 
               className="hidden md:block cursor-pointer text-(--primary) px-6 py-2 rounded-2xl font-bold hover:text-(--primary) transition-all shadow-md"
             >

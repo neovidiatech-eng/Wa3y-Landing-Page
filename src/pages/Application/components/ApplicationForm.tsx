@@ -3,23 +3,21 @@ import Stepper from "./Stepper";
 import TermsStep from "./steps/TermsStep";
 import PersonalDataStep from "./steps/PersonalDataStep";
 import WorkExperienceStep from "./steps/WorkExperienceStep";
-import DistinctiveQuestionsStep from "./steps/DistinctiveQuestionsStep";
 import OtpInput from "./OtpInput";
 import { useTranslation } from "react-i18next";
-import { useApplication, useVerifyAccount } from "../../../hooks/useApplication";
-import { ApplicationPayload } from "../../../types";
+import { useSupervisorApplication, useVerifyAccount } from "../../../hooks/useApplication";
+import { SupervisorPayload } from "../../../types";
 import { CheckCircle2, AlertCircle, X, RotateCcw, KeyRound } from "lucide-react";
 import { parseApiError, ApiErrorDetail } from "../../../utils/apiError";
 
 export default function ApplicationForm() {
   const { t } = useTranslation();
-  const { mutate: submitApplication, isPending, isError, error, reset } = useApplication();
+  const { mutate: submitApplication, isPending, isError, error, reset } = useSupervisorApplication();
   const { mutate: handleVerifyAccount, isPending: isVerifying } = useVerifyAccount();
 
   const steps = [
     t('application.step1', 'البيانات الشخصية'),
     t('application.step2', 'الخبرات والإشراف'),
-    t('application.step3', 'التفرغ والمهارات'),
     t('application.step4', 'شروط العمل')
   ];
   const [currentStep, setCurrentStep] = useState(1);
@@ -65,11 +63,11 @@ export default function ApplicationForm() {
       terms: termsData
     };
 
-    const payload: ApplicationPayload = {
+    const payload: SupervisorPayload = {
       name: updatedFormData.personal.fullName || "",
       email: updatedFormData.personal.email || "",
       password: updatedFormData.personal.password || "",
-      comfirmPassword: updatedFormData.personal.comfirmPassword || updatedFormData.personal.password || "",
+      confirmPassword: updatedFormData.personal.comfirmPassword || updatedFormData.personal.password || "",
       codeCountry: updatedFormData.personal.codeCountry || "+20",
       phone: updatedFormData.personal.whatsappNumber || "",
       gender: updatedFormData.personal.gender || "female",
@@ -89,13 +87,6 @@ export default function ApplicationForm() {
         hasCurrentJob: updatedFormData.work.hasCurrentJob === "نعم",
         hasFreeTimeFrom3To8: updatedFormData.work.hasFreeTimeFrom3To8 === "نعم",
         dailyFreeTimeHours: updatedFormData.work.dailyFreeTimeHours || "",
-        niqabDuringSession: updatedFormData.work.niqabDuringSession === "نعم",
-        onlineTeachingExperience: updatedFormData.distinctive.onlineTeachingExperience || "",
-        memorizesEntireQuran: updatedFormData.distinctive.memorizesEntireQuran === "نعم" ? "yes" : "no",
-        howDidYouHearAboutUs: updatedFormData.distinctive.howDidYouHearAboutUs || "",
-        practicalTajweedLevel: updatedFormData.distinctive.practicalTajweedLevel || "",
-        theoreticalTajweedLevel: updatedFormData.distinctive.theoreticalTajweedLevel || "",
-        otherLanguages: updatedFormData.distinctive.otherLanguages || "",
         agreedToWorkConditions: termsData.agreedToWorkConditions || false,
       },
     };
@@ -304,13 +295,6 @@ export default function ApplicationForm() {
             />
           )}
           {currentStep === 3 && (
-            <DistinctiveQuestionsStep 
-              defaultValues={formData.distinctive}
-              nextStep={(data) => { updateFormData("distinctive", data); nextStep(); }} 
-              prevStep={(data) => prevStep("distinctive", data)} 
-            />
-          )}
-          {currentStep === 4 && (
             <TermsStep 
               defaultValues={formData.terms}
               isSubmitting={isPending}
