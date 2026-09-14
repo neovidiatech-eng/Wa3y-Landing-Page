@@ -70,6 +70,34 @@ export interface ApplicationPayload {
   };
 }
 
+export interface SupervisorPayload {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  codeCountry?: string;
+  phone: string;
+  gender?: string;
+  country?: string;
+  nationality?: string;
+  timezone?: string;
+  city?: string;
+  age: number;
+  notes?: string;
+  additionalData: {
+    whatsappNumber: string;
+    birthDate: string;
+    qualification: string;
+    hasPersonalLaptop: boolean;
+    governorate: string;
+    maritalStatus: string;
+    hasCurrentJob: boolean;
+    hasFreeTimeFrom3To8: boolean;
+    dailyFreeTimeHours: string;
+    agreedToWorkConditions: boolean;
+  };
+}
+
 export interface VerifyAccountPayload {
   email: string;
   otp?: string;

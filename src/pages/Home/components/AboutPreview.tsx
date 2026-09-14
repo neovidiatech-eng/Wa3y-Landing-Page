@@ -23,7 +23,7 @@ export default function AboutPreview() {
           >
             <div className="relative z-20 overflow-hidden rounded-[40px] shadow-2xl border border-white">
               <img
-                src="/images/about_wa3y.png"
+                src="/images/about_Waai.png"
                 alt="عن أكاديمية وعي"
                 className="w-full h-auto object-cover rounded-[40px]"
               />
