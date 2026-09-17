@@ -51,7 +51,7 @@ export interface ApplicationPayload {
   notes?: string;
   additionalData: {
     whatsappNumber: string;
-    birthDate: string;
+    // birthDate: string;
     qualification: string;
     hasPersonalLaptop: boolean;
     governorate: string;

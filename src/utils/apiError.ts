@@ -14,12 +14,40 @@ export function parseApiError(
     return { message: fallbackMessage };
   }
 
-  const data = err?.response?.data;
-  if (!data) {
+  let data = err?.response?.data || err?.data || err?.response;
+  
+  if (typeof data === "string") {
+    try {
+      data = JSON.parse(data);
+    } catch (e) {}
+  }
+
+  if (!data || typeof data !== "object") {
     return { message: err?.message || fallbackMessage };
   }
 
-  const message = data.message || data.error || err.message || fallbackMessage;
+  let message = fallbackMessage;
+  
+  // Recursively find the most meaningful string
+  const findString = (obj: any): string | null => {
+    if (typeof obj === "string" && obj.toLowerCase() !== "error" && obj.trim() !== "") return obj;
+    if (obj && typeof obj === "object") {
+      if (obj.error && typeof obj.error === "string" && obj.error.toLowerCase() !== "error") return obj.error;
+      if (obj.message && typeof obj.message === "string" && obj.message.toLowerCase() !== "error") return obj.message;
+      if (obj.error) return findString(obj.error);
+      if (obj.message) return findString(obj.message);
+    }
+    return null;
+  };
+
+  const foundMessage = findString(data);
+  if (foundMessage) {
+    message = foundMessage;
+  } else if (err.message && typeof err.message === "string") {
+    message = err.message;
+  } else if (data) {
+    message = typeof data === "string" ? data : JSON.stringify(data);
+  }
   const errors: string[] = [];
 
   if (Array.isArray(data.errors)) {

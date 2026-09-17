@@ -180,7 +180,7 @@ export default function TeacherApplication() {
       notes: data.notes || "",
       additionalData: {
         whatsappNumber: data.whatsappNumber,
-        birthDate: data.birthDate,
+        // birthDate: data.birthDate,
         qualification: data.qualification,
         hasPersonalLaptop: data.hasPersonalLaptop === "نعم",
         governorate: data.governorate,
@@ -261,7 +261,8 @@ export default function TeacherApplication() {
     return false;
   }).length;
   
-  const progressPercentage = Math.round((filledFieldsCount / requiredFields.length) * 100);
+  const defaultFilledFields = 5; // gender, hasPersonalLaptop, hasCurrentJob, hasFreeTimeFrom3To8, memorizesEntireQuran
+  const progressPercentage = Math.round((Math.max(0, filledFieldsCount - defaultFilledFields) / (requiredFields.length - defaultFilledFields)) * 100);
 
   if (isSubmitted) {
     return (
@@ -421,7 +422,7 @@ export default function TeacherApplication() {
                 {...register('comfirmPassword')}
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
               <InputField 
                 label={t('application.age', 'العمر')}
                 id="age"
@@ -429,13 +430,13 @@ export default function TeacherApplication() {
                 error={errors.age}
                 {...register('age')}
               />
-              <InputField 
+              {/* <InputField 
                 label={t('application.birthDate', 'تاريخ الميلاد')}
                 id="birthDate"
                 type="date"
                 error={errors.birthDate}
                 {...register('birthDate')}
-              />
+              /> */}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <SelectField 
