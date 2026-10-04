@@ -19,6 +19,7 @@ export type PersonalDataValues = {
   hasPersonalLaptop: 'نعم' | 'لا';
   governorate: string;
   maritalStatus: string;
+  expectedSalary: string;
 };
 
 interface PersonalDataStepProps {
@@ -45,6 +46,9 @@ export default function PersonalDataStep({ defaultValues, nextStep }: PersonalDa
       hasPersonalLaptop: z.enum(['نعم', 'لا'], { message: t('application.required', 'مطلوب') }),
       governorate: z.string().min(1, { message: t('application.required', 'مطلوب') }),
       maritalStatus: z.string().min(1, { message: t('application.required', 'مطلوب') }),
+      expectedSalary: z.string()
+        .min(1, { message: t('application.required', 'مطلوب') })
+        .regex(/^\d+$/, { message: t('application.numbersOnly', 'يجب إدخال أرقام فقط') }),
     }).refine((data) => {
       if (data.password && data.password !== data.comfirmPassword) {
         return false;
@@ -228,6 +232,24 @@ export default function PersonalDataStep({ defaultValues, nextStep }: PersonalDa
               placeholder="بكالوريوس..."
             />
             {errors.qualification && <p className="text-red-500 text-sm">{errors.qualification.message}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+          <div className="space-y-4">
+            <label className="font-bold text-gray-800 ">{t('application.expectedSalary', 'الراتب المتوقع')} *</label>
+            <input 
+              type="text" 
+              inputMode="numeric"
+              {...register("expectedSalary", {
+                onChange: (e) => {
+                  e.target.value = e.target.value.replace(/\D/g, "");
+                }
+              })}
+              className="w-full border border-gray-200 px-4 py-3 mt-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-(--primary) bg-white transition-all text-left dir-ltr"
+              placeholder={t('application.expectedSalaryPlaceholder', '3000')}
+            />
+            {errors.expectedSalary && <p className="text-red-500 text-sm">{errors.expectedSalary.message}</p>}
           </div>
         </div>
 

@@ -84,6 +84,7 @@ export interface SupervisorPayload {
   city?: string;
   age: number;
   notes?: string;
+  expectedSalary: number;
   additionalData: {
     whatsappNumber: string;
     birthDate: string;

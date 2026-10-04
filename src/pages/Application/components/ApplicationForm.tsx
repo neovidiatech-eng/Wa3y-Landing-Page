@@ -77,6 +77,7 @@ export default function ApplicationForm() {
       city: "Cairo",
       age: parseInt(updatedFormData.personal.age) || 0,
       notes: termsData.notes || "",
+      expectedSalary: parseInt(updatedFormData.personal.expectedSalary) || 0,
       additionalData: {
         whatsappNumber: updatedFormData.personal.whatsappNumber || "",
         birthDate: updatedFormData.personal.birthDate || "",
