@@ -233,7 +233,7 @@ export default function PersonalDataStep({ defaultValues, nextStep }: PersonalDa
             />
             {errors.qualification && <p className="text-red-500 text-sm">{errors.qualification.message}</p>}
           </div>
-        </div>
+        </div>     
 
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           <div className="space-y-4">
